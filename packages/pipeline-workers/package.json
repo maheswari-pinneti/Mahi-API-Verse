@@ -1,0 +1,19 @@
+{
+  "name": "@mahi-api-verse/pipeline-workers",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "bullmq": "^5.7.0",
+    "ioredis": "^5.3.2",
+    "@mahi-api-verse/schemas": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.24"
+  }
+}
