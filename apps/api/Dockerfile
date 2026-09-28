@@ -1,7 +1,7 @@
 # PHASE 25: DOCKERIZATION (Backend API)
 # Multi-stage build for ultra-small image size
 
-FROM node:20-alpine AS builder
+FROM node:26-alpine AS builder
 WORKDIR /app
 
 # Install monorepo dependencies
@@ -15,7 +15,7 @@ COPY apps/api/ ./apps/api/
 RUN npm run build -w @mahi-api-verse/api
 
 # Production Stage
-FROM node:20-alpine AS runner
+FROM node:26-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
