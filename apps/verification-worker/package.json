@@ -1,0 +1,22 @@
+{
+  "name": "@mahi-api-verse/verification-worker",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/worker.js",
+  "scripts": {
+    "start": "tsx src/worker.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@mahi-api-verse/database": "*",
+    "bullmq": "^5.4.1",
+    "ioredis": "^5.3.2",
+    "axios": "^1.6.7",
+    "dns": "current"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.24"
+  }
+}
