@@ -7,7 +7,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@mahi-api-verse/database": "*"
+    "@mahi-api-verse/database": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.3.3",

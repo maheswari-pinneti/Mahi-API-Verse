@@ -7,7 +7,7 @@
     "catalog:discover": "npx ts-node src/run-discovery.ts"
   },
   "dependencies": {
-    "@mahi-api-verse/schemas": "1.0.0"
+    "@mahi-api-verse/schemas": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.3.3",

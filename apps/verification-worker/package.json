@@ -8,7 +8,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@mahi-api-verse/database": "*",
+    "@mahi-api-verse/database": "workspace:*",
     "bullmq": "^5.4.1",
     "ioredis": "^5.3.2",
     "axios": "^1.6.7"

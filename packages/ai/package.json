@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Mahi AI Assistant powered by Google Gemini",
   "dependencies": {
-    "@google/genai": "^0.1.2",
-    "@mahi-api-verse/search": "1.0.0"
+    "@google/genai": "^2.24.0",
+    "@mahi-api-verse/search": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.3.3"
