@@ -1,0 +1,602 @@
+[
+  {
+    "id": "cat_001",
+    "name": "AI",
+    "slug": "ai"
+  },
+  {
+    "id": "cat_002",
+    "name": "Machine Learning",
+    "slug": "machine-learning"
+  },
+  {
+    "id": "cat_003",
+    "name": "AI Agents",
+    "slug": "ai-agents"
+  },
+  {
+    "id": "cat_004",
+    "name": "MCP",
+    "slug": "mcp"
+  },
+  {
+    "id": "cat_005",
+    "name": "Developer",
+    "slug": "developer"
+  },
+  {
+    "id": "cat_006",
+    "name": "Git",
+    "slug": "git"
+  },
+  {
+    "id": "cat_007",
+    "name": "GitHub",
+    "slug": "github"
+  },
+  {
+    "id": "cat_008",
+    "name": "GitLab",
+    "slug": "gitlab"
+  },
+  {
+    "id": "cat_009",
+    "name": "Packages",
+    "slug": "packages"
+  },
+  {
+    "id": "cat_010",
+    "name": "npm",
+    "slug": "npm"
+  },
+  {
+    "id": "cat_011",
+    "name": "PyPI",
+    "slug": "pypi"
+  },
+  {
+    "id": "cat_012",
+    "name": "Cloud",
+    "slug": "cloud"
+  },
+  {
+    "id": "cat_013",
+    "name": "DevOps",
+    "slug": "devops"
+  },
+  {
+    "id": "cat_014",
+    "name": "Kubernetes",
+    "slug": "kubernetes"
+  },
+  {
+    "id": "cat_015",
+    "name": "Docker",
+    "slug": "docker"
+  },
+  {
+    "id": "cat_016",
+    "name": "Security",
+    "slug": "security"
+  },
+  {
+    "id": "cat_017",
+    "name": "Identity",
+    "slug": "identity"
+  },
+  {
+    "id": "cat_018",
+    "name": "Authentication",
+    "slug": "authentication"
+  },
+  {
+    "id": "cat_019",
+    "name": "Payments",
+    "slug": "payments"
+  },
+  {
+    "id": "cat_020",
+    "name": "Banking",
+    "slug": "banking"
+  },
+  {
+    "id": "cat_021",
+    "name": "Finance",
+    "slug": "finance"
+  },
+  {
+    "id": "cat_022",
+    "name": "Crypto",
+    "slug": "crypto"
+  },
+  {
+    "id": "cat_023",
+    "name": "Blockchain",
+    "slug": "blockchain"
+  },
+  {
+    "id": "cat_024",
+    "name": "E-commerce",
+    "slug": "e-commerce"
+  },
+  {
+    "id": "cat_025",
+    "name": "Retail",
+    "slug": "retail"
+  },
+  {
+    "id": "cat_026",
+    "name": "SaaS",
+    "slug": "saas"
+  },
+  {
+    "id": "cat_027",
+    "name": "CRM",
+    "slug": "crm"
+  },
+  {
+    "id": "cat_028",
+    "name": "ERP",
+    "slug": "erp"
+  },
+  {
+    "id": "cat_029",
+    "name": "HR",
+    "slug": "hr"
+  },
+  {
+    "id": "cat_030",
+    "name": "Payroll",
+    "slug": "payroll"
+  },
+  {
+    "id": "cat_031",
+    "name": "Marketing",
+    "slug": "marketing"
+  },
+  {
+    "id": "cat_032",
+    "name": "Advertising",
+    "slug": "advertising"
+  },
+  {
+    "id": "cat_033",
+    "name": "Analytics",
+    "slug": "analytics"
+  },
+  {
+    "id": "cat_034",
+    "name": "Monitoring",
+    "slug": "monitoring"
+  },
+  {
+    "id": "cat_035",
+    "name": "Observability",
+    "slug": "observability"
+  },
+  {
+    "id": "cat_036",
+    "name": "Communication",
+    "slug": "communication"
+  },
+  {
+    "id": "cat_037",
+    "name": "Email",
+    "slug": "email"
+  },
+  {
+    "id": "cat_038",
+    "name": "SMS",
+    "slug": "sms"
+  },
+  {
+    "id": "cat_039",
+    "name": "Chat",
+    "slug": "chat"
+  },
+  {
+    "id": "cat_040",
+    "name": "Social",
+    "slug": "social"
+  },
+  {
+    "id": "cat_041",
+    "name": "Video",
+    "slug": "video"
+  },
+  {
+    "id": "cat_042",
+    "name": "Audio",
+    "slug": "audio"
+  },
+  {
+    "id": "cat_043",
+    "name": "Music",
+    "slug": "music"
+  },
+  {
+    "id": "cat_044",
+    "name": "Images",
+    "slug": "images"
+  },
+  {
+    "id": "cat_045",
+    "name": "Design",
+    "slug": "design"
+  },
+  {
+    "id": "cat_046",
+    "name": "Icons",
+    "slug": "icons"
+  },
+  {
+    "id": "cat_047",
+    "name": "Fonts",
+    "slug": "fonts"
+  },
+  {
+    "id": "cat_048",
+    "name": "Colors",
+    "slug": "colors"
+  },
+  {
+    "id": "cat_049",
+    "name": "Documents",
+    "slug": "documents"
+  },
+  {
+    "id": "cat_050",
+    "name": "PDF",
+    "slug": "pdf"
+  },
+  {
+    "id": "cat_051",
+    "name": "OCR",
+    "slug": "ocr"
+  },
+  {
+    "id": "cat_052",
+    "name": "Search",
+    "slug": "search"
+  },
+  {
+    "id": "cat_053",
+    "name": "SEO",
+    "slug": "seo"
+  },
+  {
+    "id": "cat_054",
+    "name": "Web",
+    "slug": "web"
+  },
+  {
+    "id": "cat_055",
+    "name": "DNS",
+    "slug": "dns"
+  },
+  {
+    "id": "cat_056",
+    "name": "Domains",
+    "slug": "domains"
+  },
+  {
+    "id": "cat_057",
+    "name": "IP",
+    "slug": "ip"
+  },
+  {
+    "id": "cat_058",
+    "name": "Geolocation",
+    "slug": "geolocation"
+  },
+  {
+    "id": "cat_059",
+    "name": "Maps",
+    "slug": "maps"
+  },
+  {
+    "id": "cat_060",
+    "name": "Transportation",
+    "slug": "transportation"
+  },
+  {
+    "id": "cat_061",
+    "name": "Travel",
+    "slug": "travel"
+  },
+  {
+    "id": "cat_062",
+    "name": "Airlines",
+    "slug": "airlines"
+  },
+  {
+    "id": "cat_063",
+    "name": "Hotels",
+    "slug": "hotels"
+  },
+  {
+    "id": "cat_064",
+    "name": "Weather",
+    "slug": "weather"
+  },
+  {
+    "id": "cat_065",
+    "name": "Environment",
+    "slug": "environment"
+  },
+  {
+    "id": "cat_066",
+    "name": "Government",
+    "slug": "government"
+  },
+  {
+    "id": "cat_067",
+    "name": "Open Data",
+    "slug": "open-data"
+  },
+  {
+    "id": "cat_068",
+    "name": "Education",
+    "slug": "education"
+  },
+  {
+    "id": "cat_069",
+    "name": "Research",
+    "slug": "research"
+  },
+  {
+    "id": "cat_070",
+    "name": "Science",
+    "slug": "science"
+  },
+  {
+    "id": "cat_071",
+    "name": "Space",
+    "slug": "space"
+  },
+  {
+    "id": "cat_072",
+    "name": "Health",
+    "slug": "health"
+  },
+  {
+    "id": "cat_073",
+    "name": "Medical",
+    "slug": "medical"
+  },
+  {
+    "id": "cat_074",
+    "name": "Food",
+    "slug": "food"
+  },
+  {
+    "id": "cat_075",
+    "name": "Sports",
+    "slug": "sports"
+  },
+  {
+    "id": "cat_076",
+    "name": "Gaming",
+    "slug": "gaming"
+  },
+  {
+    "id": "cat_077",
+    "name": "Books",
+    "slug": "books"
+  },
+  {
+    "id": "cat_078",
+    "name": "Libraries",
+    "slug": "libraries"
+  },
+  {
+    "id": "cat_079",
+    "name": "News",
+    "slug": "news"
+  },
+  {
+    "id": "cat_080",
+    "name": "Media",
+    "slug": "media"
+  },
+  {
+    "id": "cat_081",
+    "name": "Jobs",
+    "slug": "jobs"
+  },
+  {
+    "id": "cat_082",
+    "name": "Recruitment",
+    "slug": "recruitment"
+  },
+  {
+    "id": "cat_083",
+    "name": "Real Estate",
+    "slug": "real-estate"
+  },
+  {
+    "id": "cat_084",
+    "name": "Legal",
+    "slug": "legal"
+  },
+  {
+    "id": "cat_085",
+    "name": "Insurance",
+    "slug": "insurance"
+  },
+  {
+    "id": "cat_086",
+    "name": "Automotive",
+    "slug": "automotive"
+  },
+  {
+    "id": "cat_087",
+    "name": "Logistics",
+    "slug": "logistics"
+  },
+  {
+    "id": "cat_088",
+    "name": "Shipping",
+    "slug": "shipping"
+  },
+  {
+    "id": "cat_089",
+    "name": "Agriculture",
+    "slug": "agriculture"
+  },
+  {
+    "id": "cat_090",
+    "name": "Energy",
+    "slug": "energy"
+  },
+  {
+    "id": "cat_091",
+    "name": "IoT",
+    "slug": "iot"
+  },
+  {
+    "id": "cat_092",
+    "name": "Robotics",
+    "slug": "robotics"
+  },
+  {
+    "id": "cat_093",
+    "name": "Quantum",
+    "slug": "quantum"
+  },
+  {
+    "id": "cat_094",
+    "name": "AR",
+    "slug": "ar"
+  },
+  {
+    "id": "cat_095",
+    "name": "VR",
+    "slug": "vr"
+  },
+  {
+    "id": "cat_096",
+    "name": "XR",
+    "slug": "xr"
+  },
+  {
+    "id": "cat_097",
+    "name": "Automation",
+    "slug": "automation"
+  },
+  {
+    "id": "cat_098",
+    "name": "Workflow",
+    "slug": "workflow"
+  },
+  {
+    "id": "cat_099",
+    "name": "Testing",
+    "slug": "testing"
+  },
+  {
+    "id": "cat_100",
+    "name": "Mock Data",
+    "slug": "mock-data"
+  },
+  {
+    "id": "cat_101",
+    "name": "API Management",
+    "slug": "api-management"
+  },
+  {
+    "id": "cat_102",
+    "name": "API Discovery",
+    "slug": "api-discovery"
+  },
+  {
+    "id": "cat_103",
+    "name": "API Monitoring",
+    "slug": "api-monitoring"
+  },
+  {
+    "id": "cat_104",
+    "name": "API Marketplace",
+    "slug": "api-marketplace"
+  },
+  {
+    "id": "cat_105",
+    "name": "API Documentation",
+    "slug": "api-documentation"
+  },
+  {
+    "id": "cat_106",
+    "name": "API Gateway",
+    "slug": "api-gateway"
+  },
+  {
+    "id": "cat_107",
+    "name": "Webhooks",
+    "slug": "webhooks"
+  },
+  {
+    "id": "cat_108",
+    "name": "WebSockets",
+    "slug": "websockets"
+  },
+  {
+    "id": "cat_109",
+    "name": "GraphQL",
+    "slug": "graphql"
+  },
+  {
+    "id": "cat_110",
+    "name": "gRPC",
+    "slug": "grpc"
+  },
+  {
+    "id": "cat_111",
+    "name": "SOAP",
+    "slug": "soap"
+  },
+  {
+    "id": "cat_112",
+    "name": "AsyncAPI",
+    "slug": "asyncapi"
+  },
+  {
+    "id": "cat_113",
+    "name": "OpenAPI",
+    "slug": "openapi"
+  },
+  {
+    "id": "cat_114",
+    "name": "SDK",
+    "slug": "sdk"
+  },
+  {
+    "id": "cat_115",
+    "name": "CLI",
+    "slug": "cli"
+  },
+  {
+    "id": "cat_116",
+    "name": "Data",
+    "slug": "data"
+  },
+  {
+    "id": "cat_117",
+    "name": "Databases",
+    "slug": "databases"
+  },
+  {
+    "id": "cat_118",
+    "name": "Vector Databases",
+    "slug": "vector-databases"
+  },
+  {
+    "id": "cat_119",
+    "name": "Knowledge Graphs",
+    "slug": "knowledge-graphs"
+  },
+  {
+    "id": "cat_120",
+    "name": "Semantic Search",
+    "slug": "semantic-search"
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "API Record",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "pattern": "^api_[0-9]{10}$" },
+    "name": { "type": "string" },
+    "providerId": { "type": "string" },
+    "categoryIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "protocols": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["REST", "GraphQL", "gRPC", "WebSocket", "Webhook", "SOAP", "MCP"] }
+    },
+    "documentationUrl": { "type": "string", "format": "uri" },
+    "baseUrls": {
+      "type": "array",
+      "items": { "type": "string", "format": "uri" }
+    },
+    "authentication": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "pricing": { "type": "string", "enum": ["free", "freemium", "paid", "enterprise", "open-source"] },
+    "features": {
+      "type": "object",
+      "properties": {
+        "openapi": { "type": "boolean" },
+        "graphql": { "type": "boolean" },
+        "grpc": { "type": "boolean" },
+        "websocket": { "type": "boolean" },
+        "webhook": { "type": "boolean" },
+        "mcp": { "type": "boolean" }
+      }
+    },
+    "status": { "type": "string", "enum": ["active", "deprecated", "offline", "beta"] },
+    "source": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "repository": { "type": "string" },
+        "license": { "type": "string" },
+        "discoveredAt": { "type": "string", "format": "date-time" },
+        "lastImportedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "discoveredAt"]
+    },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["verified", "unverified", "failed"] },
+        "httpStatus": { "type": "integer" },
+        "latencyMs": { "type": "integer" },
+        "https": { "type": "boolean" },
+        "cors": { "type": "boolean" },
+        "checkedAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "required": ["id", "name", "providerId", "protocols", "source"]
+}

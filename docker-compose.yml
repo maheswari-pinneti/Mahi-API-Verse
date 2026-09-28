@@ -1,0 +1,93 @@
+version: '3.8'
+
+# 🌐 MAHI API VERSE - ENTERPRISE INFRASTRUCTURE
+# Run this to spin up the entire planet-scale ecosystem locally.
+
+services:
+  # 1. Next.js Web Portal (Phase 14-18)
+  web:
+    build: 
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://api:3001
+    depends_on:
+      - api
+    networks:
+      - mahi_network
+
+  # 2. Fastify REST API (Phase 11, 19, 23)
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=postgres://postgres:password@postgres:5432/mahi_api_verse
+      - OPENSEARCH_URL=http://opensearch:9200
+      - REDIS_URL=redis://redis:6379
+      - NODE_ENV=production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      opensearch:
+        condition: service_healthy
+    networks:
+      - mahi_network
+
+  # 3. PostgreSQL Database (Phase 8 - Matrix Architecture)
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mahi_api_verse
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mahi_network
+
+  # 4. OpenSearch Cluster (Phase 9 - Vector & Faceted Search)
+  opensearch:
+    image: opensearchproject/opensearch:2.11.0
+    environment:
+      - discovery.type=single-node
+      - "DISABLE_SECURITY_PLUGIN=true" # For local dev only
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - osdata:/usr/share/opensearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200 >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mahi_network
+
+  # 5. Redis Cache (Phase 19 - Rate Limiting & Queueing)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - mahi_network
+
+volumes:
+  pgdata:
+  osdata:
+
+networks:
+  mahi_network:
+    driver: bridge

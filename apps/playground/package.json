@@ -1,0 +1,14 @@
+{
+  "name": "@mahi-api-verse/playground",
+  "version": "1.0.0",
+  "description": "Interactive API Playground powered by React and Monaco Editor",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@monaco-editor/react": "^4.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/react": "^18.2.43"
+  }
+}

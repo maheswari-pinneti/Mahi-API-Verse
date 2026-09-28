@@ -1,0 +1,53 @@
+# PHASE 26: KUBERNETES OPENSEARCH (StatefulSet)
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mahi-opensearch
+spec:
+  serviceName: "opensearch"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: opensearch
+  template:
+    metadata:
+      labels:
+        app: opensearch
+    spec:
+      containers:
+      - name: opensearch
+        image: opensearchproject/opensearch:2.11.0
+        env:
+        - name: cluster.name
+          value: "mahi-cluster"
+        - name: discovery.seed_hosts
+          value: "mahi-opensearch-0.opensearch,mahi-opensearch-1.opensearch,mahi-opensearch-2.opensearch"
+        - name: cluster.initial_master_nodes
+          value: "mahi-opensearch-0,mahi-opensearch-1,mahi-opensearch-2"
+        - name: "OPENSEARCH_JAVA_OPTS"
+          value: "-Xms1g -Xmx1g"
+        ports:
+        - containerPort: 9200
+        - containerPort: 9600
+        volumeMounts:
+        - name: opensearch-data
+          mountPath: /usr/share/opensearch/data
+  volumeClaimTemplates:
+  - metadata:
+      name: opensearch-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 200Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mahi-opensearch-service
+spec:
+  selector:
+    app: opensearch
+  ports:
+  - port: 9200
+    targetPort: 9200

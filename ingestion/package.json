@@ -1,0 +1,16 @@
+{
+  "name": "@mahi-api-verse/ingestion",
+  "version": "1.0.0",
+  "description": "API Source Discovery and Ingestion Engine",
+  "main": "src/index.js",
+  "scripts": {
+    "catalog:discover": "npx ts-node src/run-discovery.ts"
+  },
+  "dependencies": {
+    "@mahi-api-verse/schemas": "1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2"
+  }
+}

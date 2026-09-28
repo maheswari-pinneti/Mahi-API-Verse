@@ -1,0 +1,11 @@
+{
+  "name": "@mahi-api-verse/search",
+  "version": "1.0.0",
+  "description": "OpenSearch indexer and query builder for Mahi API Verse",
+  "dependencies": {
+    "@opensearch-project/opensearch": "^2.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

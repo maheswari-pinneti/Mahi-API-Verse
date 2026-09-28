@@ -1,0 +1,1 @@
+# Support Status: Level 1 — Official (Provider published)

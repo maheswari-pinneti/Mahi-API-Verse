@@ -1,0 +1,9 @@
+{
+  "name": "@mahi-api-verse/sdk-generator",
+  "version": "1.0.0",
+  "description": "Programmatic SDK generator from OpenAPI specifications",
+  "main": "src/Generator.js",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

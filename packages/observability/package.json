@@ -1,0 +1,13 @@
+{
+  "name": "@mahi-api-verse/observability",
+  "version": "1.0.0",
+  "description": "Centralized logging and telemetry for the Mahi API Verse infrastructure",
+  "dependencies": {
+    "pino": "^8.19.0",
+    "prom-client": "^15.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "pino-pretty": "^10.3.1"
+  }
+}

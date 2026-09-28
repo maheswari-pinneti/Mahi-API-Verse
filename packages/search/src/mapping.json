@@ -1,0 +1,36 @@
+{
+  "mappings": {
+    "properties": {
+      "id": { "type": "keyword" },
+      "name": { 
+        "type": "text",
+        "fields": { 
+          "keyword": { "type": "keyword", "ignore_above": 256 } 
+        }
+      },
+      "description": { "type": "text" },
+      "provider_name": { "type": "keyword" },
+      
+      "categories": { "type": "keyword" },
+      "languages": { "type": "keyword" },
+      "protocols": { "type": "keyword" },
+      
+      "authentication": { "type": "keyword" },
+      "pricing": { "type": "keyword" },
+      "license": { "type": "keyword" },
+      "verification_status": { "type": "keyword" },
+      
+      "features": {
+        "properties": {
+          "openapi": { "type": "boolean" },
+          "graphql": { "type": "boolean" },
+          "mcp": { "type": "boolean" },
+          "websocket": { "type": "boolean" }
+        }
+      },
+      
+      "created_at": { "type": "date" },
+      "updated_at": { "type": "date" }
+    }
+  }
+}

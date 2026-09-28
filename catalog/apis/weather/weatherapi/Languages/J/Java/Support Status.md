@@ -1,0 +1,1 @@
+# Support Status: Level 3 — Generated (Client from OpenAPI)

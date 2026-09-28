@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Language Record",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "pattern": "^lang_[0-9]{6}$" },
+    "name": { "type": "string" },
+    "slug": { "type": "string" },
+    "type": { 
+      "type": "string", 
+      "enum": [
+        "general-purpose", "systems", "functional", "jvm", 
+        "dotnet", "mobile", "web", "scientific", "hardware", 
+        "database", "shell", "esoteric", "historical", "dsl"
+      ] 
+    },
+    "status": { "type": "string", "enum": ["active", "historical", "esoteric", "academic"] },
+    "paradigms": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "website": { "type": "string", "format": "uri" },
+    "documentation": { "type": "string", "format": "uri" },
+    "repository": { "type": "string", "format": "uri" },
+    "packageManagers": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["id", "name", "slug", "type", "status"]
+}

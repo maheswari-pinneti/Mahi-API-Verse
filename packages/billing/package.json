@@ -1,0 +1,11 @@
+{
+  "name": "@mahi-api-verse/billing",
+  "version": "1.0.0",
+  "description": "Monetization and Stripe billing architecture",
+  "dependencies": {
+    "stripe": "^14.14.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

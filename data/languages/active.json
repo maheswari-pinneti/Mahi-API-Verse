@@ -1,0 +1,152 @@
+[
+  {
+    "id": "lang_000001",
+    "name": "Python",
+    "slug": "python",
+    "type": "general-purpose",
+    "status": "active",
+    "paradigms": [
+      "imperative",
+      "object-oriented",
+      "functional"
+    ],
+    "packageManagers": [
+      "pip",
+      "poetry"
+    ]
+  },
+  {
+    "id": "lang_000002",
+    "name": "JavaScript",
+    "slug": "javascript",
+    "type": "web",
+    "status": "active",
+    "paradigms": [
+      "event-driven",
+      "imperative",
+      "object-oriented"
+    ],
+    "packageManagers": [
+      "npm",
+      "yarn",
+      "pnpm"
+    ]
+  },
+  {
+    "id": "lang_000003",
+    "name": "TypeScript",
+    "slug": "typescript",
+    "type": "web",
+    "status": "active",
+    "paradigms": [
+      "object-oriented",
+      "functional"
+    ],
+    "packageManagers": [
+      "npm",
+      "yarn",
+      "pnpm"
+    ]
+  },
+  {
+    "id": "lang_000004",
+    "name": "Java",
+    "slug": "jvm",
+    "type": "general-purpose",
+    "status": "active",
+    "paradigms": [
+      "object-oriented",
+      "concurrent"
+    ],
+    "packageManagers": [
+      "maven",
+      "gradle"
+    ]
+  },
+  {
+    "id": "lang_000005",
+    "name": "Go",
+    "slug": "go",
+    "type": "systems",
+    "status": "active",
+    "paradigms": [
+      "concurrent",
+      "imperative"
+    ],
+    "packageManagers": [
+      "go modules"
+    ]
+  },
+  {
+    "id": "lang_000006",
+    "name": "Rust",
+    "slug": "rust",
+    "type": "systems",
+    "status": "active",
+    "paradigms": [
+      "concurrent",
+      "functional",
+      "imperative"
+    ],
+    "packageManagers": [
+      "cargo"
+    ]
+  },
+  {
+    "id": "lang_000007",
+    "name": "C#",
+    "slug": "csharp",
+    "type": "dotnet",
+    "status": "active",
+    "paradigms": [
+      "object-oriented",
+      "generic"
+    ],
+    "packageManagers": [
+      "nuget"
+    ]
+  },
+  {
+    "id": "lang_000008",
+    "name": "C++",
+    "slug": "cpp",
+    "type": "systems",
+    "status": "active",
+    "paradigms": [
+      "object-oriented",
+      "generic"
+    ],
+    "packageManagers": [
+      "vcpkg",
+      "conan"
+    ]
+  },
+  {
+    "id": "lang_000009",
+    "name": "Ruby",
+    "slug": "ruby",
+    "type": "general-purpose",
+    "status": "active",
+    "paradigms": [
+      "object-oriented",
+      "functional"
+    ],
+    "packageManagers": [
+      "gem"
+    ]
+  },
+  {
+    "id": "lang_000010",
+    "name": "PHP",
+    "slug": "php",
+    "type": "general-purpose",
+    "status": "active",
+    "paradigms": [
+      "imperative",
+      "object-oriented"
+    ],
+    "packageManagers": [
+      "composer"
+    ]
+  }
+]

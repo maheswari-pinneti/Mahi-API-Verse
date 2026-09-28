@@ -1,0 +1,53 @@
+# PHASE 26: KUBERNETES DEPLOYMENT (Next.js Web Portal)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mahi-web-deployment
+  labels:
+    app: mahi-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mahi-web
+  template:
+    metadata:
+      labels:
+        app: mahi-web
+    spec:
+      containers:
+      - name: mahi-web
+        image: ghcr.io/your-org/mahi-web:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: NEXT_PUBLIC_API_URL
+          value: "http://mahi-api-service" # Internal cluster routing
+        resources:
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mahi-web-service
+spec:
+  selector:
+    app: mahi-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer # Exposes the Web Portal to the public internet

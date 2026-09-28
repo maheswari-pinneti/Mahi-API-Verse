@@ -1,0 +1,11 @@
+{
+  "name": "@mahi-api-verse/discovery",
+  "version": "1.0.0",
+  "description": "Signal-based API discovery and recommendation engine",
+  "dependencies": {
+    "@opensearch-project/opensearch": "^2.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

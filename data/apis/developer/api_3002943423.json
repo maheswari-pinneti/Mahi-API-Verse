@@ -1,0 +1,37 @@
+{
+  "id": "api_3002943423",
+  "name": "GitHub REST API",
+  "providerId": "provider_github",
+  "categoryIds": [
+    "developer"
+  ],
+  "protocols": [
+    "REST"
+  ],
+  "documentationUrl": "https://docs.github.com/en/rest",
+  "baseUrls": [
+    "https://api.github.com"
+  ],
+  "authentication": [
+    "oauth2",
+    "personal_access_token"
+  ],
+  "pricing": "freemium",
+  "features": {
+    "openapi": true,
+    "graphql": false,
+    "grpc": false,
+    "websocket": false,
+    "webhook": false,
+    "mcp": false
+  },
+  "status": "active",
+  "source": {
+    "type": "github",
+    "url": "https://github.com/github/rest-api-description",
+    "repository": "",
+    "license": "unknown",
+    "discoveredAt": "2026-09-28T15:27:35.164Z",
+    "lastImportedAt": "2026-09-28T15:27:35.170Z"
+  }
+}
