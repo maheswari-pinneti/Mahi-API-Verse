@@ -1,4 +1,5 @@
 import { KPICards } from "../components/KPICards";
+import { LiveGlobe } from "../components/LiveGlobe";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       </p>
       
       <KPICards />
+      <LiveGlobe />
 
       <div style={{ marginTop: '3rem', padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '12px', backgroundColor: '#f9fafb' }}>
         <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>⚠️ Development Notice</h2>
