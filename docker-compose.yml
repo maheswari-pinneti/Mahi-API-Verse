@@ -4,13 +4,26 @@ version: '3.8'
 # Run this to spin up the entire planet-scale ecosystem locally.
 
 services:
+  # 0. NGINX Load Balancer
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web
+      - api
+    networks:
+      - mahi_network
+
   # 1. Next.js Web Portal (Phase 14-18)
   web:
     build: 
       context: .
       dockerfile: apps/web/Dockerfile
-    ports:
-      - "3000:3000"
+    deploy:
+      replicas: 2
     environment:
       - NEXT_PUBLIC_API_URL=http://api:3001
     depends_on:
@@ -23,8 +36,8 @@ services:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
-    ports:
-      - "3001:3001"
+    deploy:
+      replicas: 2
     environment:
       - DATABASE_URL=postgres://postgres:password@postgres:5432/mahi_api_verse
       - OPENSEARCH_URL=http://opensearch:9200
