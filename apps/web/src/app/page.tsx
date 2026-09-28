@@ -1,12 +1,18 @@
+import { KPICards } from "../components/KPICards";
+
 export default function Home() {
   return (
-    <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
+    <main style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '1200px', margin: '0 auto' }}>
       <h1>Mahi API Verse</h1>
-      <p>The universal catalog of 10M+ APIs and 700+ language SDKs.</p>
+      <p style={{ color: '#4b5563', fontSize: '1.125rem' }}>
+        The universal catalog of 10M+ APIs and 700+ language SDKs.
+      </p>
       
-      <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
-        <h2>⚠️ Development Notice</h2>
-        <p>
+      <KPICards />
+
+      <div style={{ marginTop: '3rem', padding: '1.5rem', border: '1px solid #e5e7eb', borderRadius: '12px', backgroundColor: '#f9fafb' }}>
+        <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>⚠️ Development Notice</h2>
+        <p style={{ color: '#6b7280', lineHeight: 1.6 }}>
           Per our architectural roadmap, the Web Portal is currently scaffolding. 
           Everything is displayed directly on the GitHub repository natively. 
           No public website is deployed yet until the ingestion pipeline has 
