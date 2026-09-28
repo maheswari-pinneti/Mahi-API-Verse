@@ -1,0 +1,3 @@
+# 📂 A2a APIs
+
+This category will contain APIs related to A2a. The ingestion engine will automatically populate this directory as new schemas are validated.
