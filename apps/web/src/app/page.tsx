@@ -124,7 +124,7 @@ export default function Home() {
               <div style={{ color: '#6b7280', marginBottom: '1rem' }}>// Extracting 10M rows safely...</div>
               <div>$ pg-cursor pull apis \</div>
               <div style={{ paddingLeft: '1rem' }}>--format=ndjson \</div>
-              <div style={{ paddingLeft: '1rem' }}>--stream > apis_export.ndjson</div>
+              <div style={{ paddingLeft: '1rem' }}>{'--stream > apis_export.ndjson'}</div>
               <br/>
               <div style={{ color: '#eab308' }}>✓ Export Complete: 14,205,191 records</div>
               <div style={{ color: '#3b82f6' }}>📂 Saved to releases/2026-09-28/</div>
