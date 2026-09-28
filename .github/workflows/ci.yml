@@ -55,7 +55,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Build & Push API Image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v7
       with:
         context: .
         file: ./apps/api/Dockerfile
@@ -63,7 +63,7 @@ jobs:
         tags: ghcr.io/${{ github.repository }}/mahi-api:latest
         
     - name: Build & Push Web Image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v7
       with:
         context: .
         file: ./apps/web/Dockerfile
