@@ -235,6 +235,19 @@ importers:
         specifier: ^5.3.3
         version: 5.9.3
 
+  packages/api-documentation:
+    dependencies:
+      '@mahi-api-verse/schemas':
+        specifier: workspace:*
+        version: link:../schemas
+    devDependencies:
+      '@types/node':
+        specifier: ^20.11.24
+        version: 20.19.43
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+
   packages/benchmarks:
     dependencies:
       autocannon:
