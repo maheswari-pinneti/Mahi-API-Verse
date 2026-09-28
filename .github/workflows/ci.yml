@@ -23,22 +23,22 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         
-    - name: Verify Monorepo Structure
-      run: |
-        echo "Validating 10M API Registry Matrix..."
-        echo "Directories detected. Schema valid."
-        
-    - name: Mock Install Dependencies
-      run: echo "Skipping physical NPM install for architectural monorepo. Dependencies valid."
-      
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v3
+      with:
+        version: 9
+
+    - name: Install Dependencies
+      run: pnpm install --no-frozen-lockfile
+
     - name: Lint Codebase
-      run: echo "Linting passed. Zero warnings."
-      
+      run: pnpm exec turbo run lint
+
     - name: Build Packages & Apps
-      run: echo "Build successful. Artifacts generated."
-      
+      run: pnpm exec turbo run build
+
     - name: Run Unit & Integration Tests
-      run: echo "142 tests passed. 100% Coverage."
+      run: pnpm exec turbo run test
 
   docker-publish:
     needs: build-and-test
