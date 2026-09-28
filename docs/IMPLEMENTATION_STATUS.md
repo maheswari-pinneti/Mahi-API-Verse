@@ -21,5 +21,5 @@
 | **Knowledge Graph** | IMPLEMENTED | D3/Relational graph node extraction |
 | **GitHub Native Catalog** | IMPLEMENTED | Markdown static generator |
 | **Data Exports / Releases** | IMPLEMENTED | Streaming NDJSON data extraction pipeline |
-| **Authentication / Users** | NOT IMPLEMENTED | Pending |
+| **Authentication / Users** | IMPLEMENTED | JWT + RBAC authorization engine |
 | **Admin Dashboard** | NOT IMPLEMENTED | Pending |
