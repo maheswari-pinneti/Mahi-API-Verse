@@ -1,7 +1,7 @@
 # PHASE 25: DOCKERIZATION (Web Portal)
 # Multi-stage build leveraging Next.js Standalone Output
 
-FROM node:20-alpine AS builder
+FROM node:26-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 COPY packages/ ./packages/
@@ -9,7 +9,7 @@ COPY apps/web/ ./apps/web/
 RUN npm ci
 RUN npm run build -w @mahi-api-verse/web
 
-FROM node:20-alpine AS runner
+FROM node:26-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
