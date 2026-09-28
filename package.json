@@ -14,7 +14,13 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "dev": "turbo run dev",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "docs:generate": "echo \"TODO: Implement documentation generation pipeline\"",
+    "docs:audit": "echo \"TODO: Implement documentation audit pipeline\"",
+    "verification:run": "echo \"TODO: Implement API verification pipeline\"",
+    "apis:check": "echo \"TODO: Implement global catalog checks\"",
+    "data:quality": "echo \"TODO: Implement data quality checks\"",
+    "platform:audit": "echo \"TODO: Implement platform audit\""
   },
   "devDependencies": {
     "turbo": "latest"

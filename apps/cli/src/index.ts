@@ -1,64 +1,90 @@
 #!/usr/bin/env node
-
 import { Command } from 'commander';
-import axios from 'axios';
 import chalk from 'chalk';
-import ora from 'ora';
-
-// Config
-const API_URL = process.env.MAHI_API_URL || 'http://localhost:3001/v1';
 
 const program = new Command();
 
 program
   .name('mahi')
-  .description('The official CLI for the Mahi API Verse (10M+ APIs)')
+  .description('Mahi API Verse CLI - Global Catalog & Documentation Utility')
   .version('1.0.0');
 
 // ---------------------------------------------------------
-// Command: Search
+// mahi inspect <api>
 // ---------------------------------------------------------
 program
-  .command('search')
-  .description('Search the massive API catalog')
-  .argument('<query>', 'Search term (e.g. stripe, weather)')
-  .action(async (query: string) => {
-    const spinner = ora(`Searching for "${query}" across 10M APIs...`).start();
-    try {
-      // Hits the Fastify backend built in Phase 32
-      const response = await axios.get(`${API_URL}/apis?q=${encodeURIComponent(query)}`);
-      spinner.succeed(chalk.green(`Found ${response.data.meta?.total || 0} results for "${query}"`));
-      
-      console.log('\nTop Results:');
-      response.data.data.forEach((api: any) => {
-        console.log(`- ${chalk.blue.bold(api.name)} (ID: ${api.id})`);
-        console.log(`  Status: ${api.lifecycle === 'VERIFIED' ? chalk.green('Verified') : chalk.yellow('Unverified')}`);
-      });
-      
-    } catch (err: any) {
-      spinner.fail(chalk.red('Failed to connect to the Mahi API Engine'));
-      if (err.response) {
-        console.error(chalk.red(err.response.data?.error || err.message));
-      }
-    }
+  .command('inspect <api>')
+  .description('Inspect the Universal API Passport for a specific API')
+  .action((api) => {
+    console.log(chalk.blue(`🔍 Inspecting API Profile for: ${api}`));
+    console.log(chalk.gray(`-> Querying Global Catalog Database...`));
+    console.log(chalk.yellow(`[TODO] Not fully implemented. Displaying placeholder data.`));
+    console.log(`
+API: ${api}
+Documentation Completeness: 0/40 fields
+Verification State: UNVERIFIED
+`);
   });
 
 // ---------------------------------------------------------
-// Command: Generate SDK
+// mahi process <api>
 // ---------------------------------------------------------
 program
-  .command('generate')
-  .description('Generate an SDK client for a specific API')
-  .argument('<apiId>', 'The Canonical ID of the API')
-  .option('-l, --language <language>', 'Target language (typescript, python, go, rust)', 'typescript')
-  .action(async (apiId: string, options: { language: string }) => {
-    const spinner = ora(`Generating ${options.language} SDK for API: ${apiId}...`).start();
-    
-    // In production, this hits the SDK Generator Engine (Phase 37)
-    setTimeout(() => {
-      spinner.succeed(chalk.green(`Successfully generated ${options.language} SDK!`));
-      console.log(chalk.cyan(`\nRun \`npm install\` in the output directory to get started.`));
-    }, 1500); // Mock network latency for the blueprint
+  .command('process <api>')
+  .description('Run the full end-to-end processing pipeline for a specific API')
+  .action((api) => {
+    console.log(chalk.magenta(`⚙️ Booting Worker Pipeline for: ${api}`));
+    console.log(`Pipeline steps: discover → import → normalize → document → verify`);
+    console.log(chalk.yellow(`[TODO] Queue dispatch not yet connected.`));
+  });
+
+// ---------------------------------------------------------
+// mahi docs <api>
+// ---------------------------------------------------------
+program
+  .command('docs <api>')
+  .description('Query documentation or specific fields for an API')
+  .option('--quickstart', 'Show quickstart guide')
+  .option('--endpoint <endpoint>', 'Show documentation for specific endpoint')
+  .option('--language <lang>', 'Show documentation for specific language')
+  .option('--format <format>', 'Export format (markdown/json/html)')
+  .option('--verify', 'Run documentation validation against specs')
+  .action((api, options) => {
+    console.log(chalk.cyan(`📖 Documentation Engine: ${api}`));
+    console.log(options);
+    console.log(chalk.yellow(`[TODO] Documentation Generator not yet connected.`));
+  });
+
+// ---------------------------------------------------------
+// mahi verify <api>
+// ---------------------------------------------------------
+program
+  .command('verify <api>')
+  .description('Run mathematical verification and security assertions on an API')
+  .action((api) => {
+    console.log(chalk.green(`🛡️ Verifying API constraints: ${api}`));
+    console.log(chalk.yellow(`[TODO] Verification Worker not yet connected.`));
+  });
+
+// ---------------------------------------------------------
+// mahi catalog check
+// ---------------------------------------------------------
+const catalogCmd = program
+  .command('catalog')
+  .description('Global Catalog operations');
+
+catalogCmd
+  .command('check')
+  .description('Run asynchronous global audit and consistency checks')
+  .option('--all', 'Check the entire 10M+ database')
+  .option('--documentation', 'Audit documentation completeness')
+  .option('--verification', 'Audit verification claims')
+  .option('--languages', 'Audit 700+ language matrix')
+  .option('--stale', 'Audit stale or broken links')
+  .action((options) => {
+    console.log(chalk.bold.red(`🌐 GLOBAL CATALOG CHECK INITIATED`));
+    console.log(options);
+    console.log(chalk.yellow(`[TODO] Distributed Worker Partitioning not yet connected.`));
   });
 
 program.parse(process.argv);
