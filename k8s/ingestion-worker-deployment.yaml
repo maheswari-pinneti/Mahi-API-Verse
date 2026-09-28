@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingestion-worker
+  namespace: mahi-system
+  labels:
+    app: ingestion-worker
+spec:
+  replicas: 5 # High concurrency for 10M scale
+  selector:
+    matchLabels:
+      app: ingestion-worker
+  template:
+    metadata:
+      labels:
+        app: ingestion-worker
+    spec:
+      containers:
+      - name: ingestion-worker
+        image: ghcr.io/maheswari-pinneti/mahi-api-verse/ingestion-worker:latest
+        env:
+        - name: REDIS_HOST
+          value: "redis-queue"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: connection_string
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+          requests:
+            memory: "512Mi"
+            cpu: "500m"

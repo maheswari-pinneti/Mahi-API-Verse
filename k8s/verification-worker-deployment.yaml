@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: verification-worker
+  namespace: mahi-system
+  labels:
+    app: verification-worker
+spec:
+  replicas: 10 # Massive scaling for continuous background pinging
+  selector:
+    matchLabels:
+      app: verification-worker
+  template:
+    metadata:
+      labels:
+        app: verification-worker
+    spec:
+      containers:
+      - name: verification-worker
+        image: ghcr.io/maheswari-pinneti/mahi-api-verse/verification-worker:latest
+        env:
+        - name: REDIS_HOST
+          value: "redis-queue"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: connection_string
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
