@@ -1,9 +1,17 @@
 {
   "name": "@mahi-api-verse/sdk-generator",
   "version": "1.0.0",
-  "description": "Programmatic SDK generator from OpenAPI specifications",
-  "main": "src/Generator.js",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "openapi-types": "^12.1.3",
+    "handlebars": "^4.7.8"
+  },
   "devDependencies": {
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.24"
   }
 }
