@@ -1,8 +1,15 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import chalk from 'chalk';
+import { Queue } from 'bullmq';
+import IORedis from 'ioredis';
+import ora from 'ora';
 
 const program = new Command();
+
+const redisConnection = new IORedis(process.env.REDIS_URL || 'redis://localhost:6379');
+const importQueue = new Queue('import', { connection: redisConnection });
+const verifyQueue = new Queue('verify', { connection: redisConnection });
 
 program
   .name('mahi')
@@ -32,10 +39,17 @@ Verification State: UNVERIFIED
 program
   .command('process <api>')
   .description('Run the full end-to-end processing pipeline for a specific API')
-  .action((api) => {
-    console.log(chalk.magenta(`⚙️ Booting Worker Pipeline for: ${api}`));
-    console.log(`Pipeline steps: discover → import → normalize → document → verify`);
-    console.log(chalk.yellow(`[TODO] Queue dispatch not yet connected.`));
+  .action(async (api) => {
+    const spinner = ora(chalk.magenta(`⚙️ Booting Worker Pipeline for: ${api}`)).start();
+    try {
+      await importQueue.add('discover-and-import', { apiName: api });
+      spinner.succeed(chalk.green(`Successfully dispatched 'import' job for ${api}`));
+      console.log(`Pipeline steps: discover → import → normalize → document → verify`);
+    } catch (err: any) {
+      spinner.fail(chalk.red(`Failed to dispatch job: ${err.message}`));
+    } finally {
+      redisConnection.quit();
+    }
   });
 
 // ---------------------------------------------------------
@@ -53,6 +67,7 @@ program
     console.log(chalk.cyan(`📖 Documentation Engine: ${api}`));
     console.log(options);
     console.log(chalk.yellow(`[TODO] Documentation Generator not yet connected.`));
+    redisConnection.quit();
   });
 
 // ---------------------------------------------------------
@@ -61,9 +76,16 @@ program
 program
   .command('verify <api>')
   .description('Run mathematical verification and security assertions on an API')
-  .action((api) => {
-    console.log(chalk.green(`🛡️ Verifying API constraints: ${api}`));
-    console.log(chalk.yellow(`[TODO] Verification Worker not yet connected.`));
+  .action(async (api) => {
+    const spinner = ora(chalk.green(`🛡️ Dispatching Verification job for: ${api}`)).start();
+    try {
+      await verifyQueue.add('verify-api', { apiName: api });
+      spinner.succeed(chalk.green(`Successfully dispatched 'verify' job for ${api}`));
+    } catch (err: any) {
+      spinner.fail(chalk.red(`Failed to dispatch verification job: ${err.message}`));
+    } finally {
+      redisConnection.quit();
+    }
   });
 
 // ---------------------------------------------------------
@@ -85,6 +107,10 @@ catalogCmd
     console.log(chalk.bold.red(`🌐 GLOBAL CATALOG CHECK INITIATED`));
     console.log(options);
     console.log(chalk.yellow(`[TODO] Distributed Worker Partitioning not yet connected.`));
+    redisConnection.quit();
   });
 
-program.parse(process.argv);
+program.parseAsync(process.argv).catch(err => {
+  console.error(err);
+  redisConnection.quit();
+});

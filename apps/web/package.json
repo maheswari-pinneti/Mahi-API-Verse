@@ -12,9 +12,11 @@
     "cobe": "^0.6.3",
     "next": "^16.3.6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",

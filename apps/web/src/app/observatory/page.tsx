@@ -5,7 +5,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
   PieChart, Pie, Cell 
 } from 'recharts';
-import '../../globals.css';
+import '../globals.css';
 
 /**
  * PHASE 21: THE GLOBAL OBSERVATORY
@@ -88,7 +88,7 @@ export default function ObservatoryPage() {
                   paddingAngle={5}
                   dataKey="value"
                   stroke="none"
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
                   labelLine={{ stroke: 'var(--text-secondary)' }}
                 >
                   {languageData.map((entry, index) => (

@@ -9,12 +9,15 @@
   },
   "dependencies": {
     "@mahi-api-verse/database": "workspace:*",
+    "drizzle-orm": "^0.45.3",
+    "fs-extra": "^11.2.0",
     "handlebars": "^4.7.8",
-    "fs-extra": "^11.2.0"
+    "pg": "^8.11.3"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.11.24",
-    "@types/fs-extra": "^11.0.4"
+    "@types/pg": "^8.11.0",
+    "typescript": "^5.3.3"
   }
 }

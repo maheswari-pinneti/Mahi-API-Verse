@@ -8,12 +8,14 @@
     "dev": "tsc --watch"
   },
   "dependencies": {
+    "@mahi-api-verse/schemas": "workspace:*",
+    "@mahi-api-verse/search-engine": "workspace:^",
+    "@mahi-api-verse/webhook-dispatcher": "workspace:^",
     "bullmq": "^5.7.0",
-    "ioredis": "^5.3.2",
-    "@mahi-api-verse/schemas": "workspace:*"
+    "ioredis": "^5.3.2"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
-    "@types/node": "^20.11.24"
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
   }
 }

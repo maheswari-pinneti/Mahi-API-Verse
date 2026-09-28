@@ -1,18 +1,19 @@
 {
-  "name": "@mahi-api-verse/api-documentation",
+  "name": "@mahi-api-verse/language-matrix-generator",
   "version": "1.0.0",
+  "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc -w",
+    "test": "jest"
   },
   "dependencies": {
-    "@mahi-api-verse/language-matrix-generator": "workspace:^",
     "@mahi-api-verse/schemas": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^20.11.24",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.24"
   }
 }

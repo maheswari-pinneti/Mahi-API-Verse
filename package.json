@@ -1,8 +1,8 @@
 {
-  "name": "mahi-api-verse",
+  "name": "@mahi-api-verse/webhook-dispatcher",
   "version": "1.0.0",
   "description": "10M+ APIs · 700+ programming languages · Global API Metadata Platform",
-  "private": true,
+  "private": "true",
   "packageManager": "pnpm@9.1.0",
   "workspaces": [
     "apps/*",
@@ -33,5 +33,7 @@
     "mcp"
   ],
   "author": "Mahi API Verse Contributors",
-  "license": "MIT"
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts"
 }

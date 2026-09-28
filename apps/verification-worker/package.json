@@ -9,13 +9,14 @@
   },
   "dependencies": {
     "@mahi-api-verse/database": "workspace:*",
+    "@mahi-api-verse/schemas": "workspace:^",
+    "axios": "^1.6.7",
     "bullmq": "^5.4.1",
-    "ioredis": "^5.3.2",
-    "axios": "^1.6.7"
+    "ioredis": "^5.3.2"
   },
   "devDependencies": {
+    "@types/node": "^20.11.24",
     "tsx": "^4.7.1",
-    "typescript": "^5.3.3",
-    "@types/node": "^20.11.24"
+    "typescript": "^5.3.3"
   }
 }
