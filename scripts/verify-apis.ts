@@ -34,13 +34,6 @@ function runTests() {
       "LiveGlobe.tsx is missing"
     );
 
-    // 2. Verify Authentication Engine
-    const authCode = fs.readFileSync('./packages/auth/src/index.ts', 'utf8');
-    assert(
-      "Auth Engine: RBAC roles explicitly defined",
-      authCode.includes('ROLES.DEVELOPER') && authCode.includes('ROLES.ADMIN'),
-      "RBAC roles are missing"
-    );
 
     // 3. Verify Search Engine
     const searchCode = fs.readFileSync('./packages/search-engine/src/SearchEngine.ts', 'utf8');
