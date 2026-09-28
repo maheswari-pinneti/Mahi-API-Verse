@@ -1,10 +1,22 @@
 {
-  "name": "global-api-universe",
+  "name": "mahi-api-verse",
   "version": "1.0.0",
   "description": "10M+ APIs · 700+ programming languages · Global API Metadata Platform",
-  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "setup": "node scripts/scaffold.js"
+    "setup": "node scripts/scaffold.js",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "turbo": "latest"
   },
   "keywords": [
     "api",
@@ -13,6 +25,6 @@
     "graphql",
     "mcp"
   ],
-  "author": "",
+  "author": "Mahi API Verse Contributors",
   "license": "MIT"
 }
