@@ -5,16 +5,16 @@
   <p>
     <a href="https://github.com/maheswari-pinneti/Mahi-API-Verse/actions"><img src="https://img.shields.io/github/actions/workflow/status/maheswari-pinneti/Mahi-API-Verse/ci.yml?branch=main" alt="Build Status"></a>
     <a href="https://github.com/maheswari-pinneti/Mahi-API-Verse/blob/main/LICENSE"><img src="https://img.shields.io/github/license/maheswari-pinneti/Mahi-API-Verse" alt="License"></a>
-    <img src="https://img.shields.io/badge/APIs_Indexed-10,000,000+-blue.svg" alt="APIs Indexed">
-    <img src="https://img.shields.io/badge/Languages_Mapped-700+-orange.svg" alt="Languages">
+    <img src="https://img.shields.io/badge/Architecture-Enterprise_Scale-blue.svg" alt="Architecture Scale">
+    <img src="https://img.shields.io/badge/Language_Matrix-700+_Supported-orange.svg" alt="Languages">
   </p>
 </div>
 
 <br/>
 
-Welcome to **Mahi API Verse** — a planet-scale architecture designed to ingest, normalize, verify, and index over **10 million APIs** while mapping them against an unprecedented compatibility matrix of **700+ programming languages**.
+Welcome to **Mahi API Verse** — an enterprise-scale architecture designed to ingest, normalize, verify, and index millions of APIs while mapping them against an unprecedented compatibility matrix of **700+ programming languages**.
 
-We didn't just want to build another static directory. We wanted to map the entire global API economy into a live, machine-readable, and fundamentally human-explorable registry.
+We are currently building the architectural foundation. As the distributed ingestion pipeline matures, our dynamic API counter will reflect the verified dataset.
 
 ---
 
