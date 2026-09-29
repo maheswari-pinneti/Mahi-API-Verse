@@ -6,6 +6,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'logo.clearbit.com' },
     ],
   },
+  output: 'standalone',
 
   async headers() {
     return [
