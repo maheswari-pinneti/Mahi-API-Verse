@@ -194,10 +194,22 @@ importers:
       fastify:
         specifier: ^4.26.2
         version: 4.29.1
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
     devDependencies:
       '@types/node':
         specifier: ^20.11.24
         version: 20.19.43
+      '@types/react':
+        specifier: ^18.2.55
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.19
+        version: 18.3.7(@types/react@18.3.31)
       tsx:
         specifier: ^4.7.1
         version: 4.23.15
