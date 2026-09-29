@@ -31,12 +31,15 @@ jobs:
         echo "Running Drizzle ORM migrations against Production DB..."
         # npm run db:push
 
+    - name: Lowercase Repository Name
+      run: echo "REPO=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
+      
     - name: Update Kubernetes Cluster (EKS)
       run: |
         echo "Updating K8s deployment images to latest GHCR tag..."
         # aws eks update-kubeconfig --name mahi-cluster
-        # kubectl set image deployment/mahi-api-deployment mahi-api=ghcr.io/${{ github.repository }}/mahi-api:latest
-        # kubectl set image deployment/mahi-web-deployment mahi-web=ghcr.io/${{ github.repository }}/mahi-web:latest
+        # kubectl set image deployment/mahi-api-deployment mahi-api=ghcr.io/${{ env.REPO }}/mahi-api:latest
+        # kubectl set image deployment/mahi-web-deployment mahi-web=ghcr.io/${{ env.REPO }}/mahi-web:latest
         
     - name: Verify Deployment Rollout
       run: |
