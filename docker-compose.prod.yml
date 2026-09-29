@@ -1,0 +1,113 @@
+version: '3.8'
+
+# 🌐 MAHI API VERSE - PRODUCTION INFRASTRUCTURE
+# Secure, production-ready environment variables injected via .env
+
+services:
+  # 0. NGINX Load Balancer
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      - web
+      - api
+    networks:
+      - mahi_network
+
+  # 1. Next.js Web Portal
+  web:
+    build: 
+      context: .
+      dockerfile: apps/web/Dockerfile
+    deploy:
+      replicas: 3
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    depends_on:
+      - api
+    networks:
+      - mahi_network
+    # No public ports exposed; NGINX routes traffic
+
+  # 2. Fastify REST API
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    deploy:
+      replicas: 3
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - OPENSEARCH_URL=${OPENSEARCH_URL}
+      - OPENSEARCH_USERNAME=${OPENSEARCH_USERNAME}
+      - OPENSEARCH_PASSWORD=${OPENSEARCH_PASSWORD}
+      - REDIS_URL=${REDIS_URL}
+      - NODE_ENV=production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      opensearch:
+        condition: service_healthy
+    networks:
+      - mahi_network
+    # No public ports exposed; NGINX routes traffic
+
+  # 3. PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mahi_network
+    # NOT exposed publicly: 5432 is strictly internal
+
+  # 4. OpenSearch Cluster
+  opensearch:
+    image: opensearchproject/opensearch:2.11.0
+    environment:
+      - discovery.type=single-node
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_PASSWORD}
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
+    volumes:
+      - osdata:/usr/share/opensearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -u admin:${OPENSEARCH_PASSWORD} -k https://localhost:9200 >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mahi_network
+    # NOT exposed publicly: 9200 is strictly internal
+
+  # 5. Redis Cache
+  redis:
+    image: redis:7-alpine
+    command: redis-server --requirepass ${REDIS_PASSWORD} --tls-port 6379 --port 0
+    volumes:
+      - redisdata:/data
+    networks:
+      - mahi_network
+    # NOT exposed publicly: 6379 is strictly internal
+
+volumes:
+  pgdata:
+  osdata:
+  redisdata:
+
+networks:
+  mahi_network:
+    driver: bridge

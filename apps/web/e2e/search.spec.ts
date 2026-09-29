@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
  * PHASE 29: E2E SEARCH INTELLIGENCE TEST
  * 
  * Simulates a real user hitting the platform and searching
- * across the 10,000,000 OpenSearch-backed APIs.
+ * across the OpenSearch-backed APIs.
  */
 test.describe('Mahi API Verse Core Journeys', () => {
 
@@ -16,14 +16,14 @@ test.describe('Mahi API Verse Core Journeys', () => {
     await expect(page).toHaveTitle(/Mahi API Verse/);
 
     // Verify the hero search bar is completely loaded
-    const searchBar = page.getByPlaceholder('Search 10,000,000+ APIs...');
+    const searchBar = page.getByPlaceholder('Search APIs...');
     await expect(searchBar).toBeVisible();
   });
 
   test('Universal Search returns OpenWeatherMap', async ({ page }) => {
     await page.goto('/');
 
-    const searchBar = page.getByPlaceholder('Search 10,000,000+ APIs...');
+    const searchBar = page.getByPlaceholder('Search APIs...');
     
     // Simulate realistic user typing
     await searchBar.fill('Weather');

@@ -20,7 +20,11 @@
     "verification:run": "echo \"TODO: Implement API verification pipeline\"",
     "apis:check": "echo \"TODO: Implement global catalog checks\"",
     "data:quality": "echo \"TODO: Implement data quality checks\"",
-    "platform:audit": "echo \"TODO: Implement platform audit\""
+    "platform:audit": "echo \"TODO: Implement platform audit\"",
+    "catalog:ingest": "tsx scripts/seed-10m-apis.ts",
+    "catalog:normalize": "echo \"TODO: Implement normalization\"",
+    "catalog:deduplicate": "echo \"TODO: Implement deduplication\"",
+    "catalog:index": "echo \"TODO: Implement indexing\""
   },
   "devDependencies": {
     "turbo": "latest"

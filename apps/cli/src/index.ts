@@ -103,11 +103,21 @@ catalogCmd
   .option('--verification', 'Audit verification claims')
   .option('--languages', 'Audit 700+ language matrix')
   .option('--stale', 'Audit stale or broken links')
-  .action((options) => {
+  .action(async (options) => {
     console.log(chalk.bold.red(`🌐 GLOBAL CATALOG CHECK INITIATED`));
     console.log(options);
-    console.log(chalk.yellow(`[TODO] Distributed Worker Partitioning not yet connected.`));
-    redisConnection.quit();
+    
+    const auditQueue = new Queue('audit', { connection: redisConnection });
+    const spinner = ora(chalk.magenta(`⚙️ Booting Worker Pipeline for Catalog Check...`)).start();
+    
+    try {
+      await auditQueue.add('catalog-audit', { options });
+      spinner.succeed(chalk.green(`Successfully dispatched 'catalog-audit' job to the distributed queue.`));
+    } catch (err: any) {
+      spinner.fail(chalk.red(`Failed to dispatch job: ${err.message}`));
+    } finally {
+      redisConnection.quit();
+    }
   });
 
 program.parseAsync(process.argv).catch(err => {

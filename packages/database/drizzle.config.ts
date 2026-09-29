@@ -12,6 +12,6 @@ export default {
   out: './drizzle',
   driver: 'pg',
   dbCredentials: {
-    connectionString: process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5432/mahi_api_verse',
+    connectionString: process.env.DATABASE_URL as string,
   },
 } satisfies Config;

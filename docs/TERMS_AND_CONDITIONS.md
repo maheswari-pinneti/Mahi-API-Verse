@@ -13,7 +13,7 @@ By accessing the Mahi API Verse repository, utilizing our open-source codebase, 
 - However, the API metadata, schemas, and proprietary indexing algorithms ingested by the production deployment of Mahi API Verse remain subject to their original providers' terms of service.
 
 ## 3. Data Integrity and Accuracy
-The Mahi API Verse aggregates data from 10,000,000+ public and private APIs. While we utilize autonomous workers to continuously index and normalize this data, we do not guarantee the real-time accuracy, reliability, or completeness of the API endpoints, authentication schemas, or SDK matrices.
+The Mahi API Verse aggregates data from public and private APIs. While we utilize autonomous workers to continuously index and normalize this data, we do not guarantee the real-time accuracy, reliability, or completeness of the API endpoints, authentication schemas, or SDK matrices.
 
 ## 4. Rate Limiting and Fair Use
 Access to the production Fastify API is governed by strict rate-limiting protocols (enforced via Redis). Malicious scraping, excessive polling, or attempts to circumvent the OWASP security measures outlined in `Phase 19` will result in permanent IP bans.

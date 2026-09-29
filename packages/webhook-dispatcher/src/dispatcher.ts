@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { safeFetch } from '@mahi-api-verse/network-security';
 
 export interface WebhookPayload {
   event: string;
@@ -36,7 +37,7 @@ export class WebhookDispatcher {
     const signature = this.signPayload(payloadStr, config.secret);
 
     try {
-      const response = await fetch(config.endpointUrl, {
+      const response = await safeFetch(config.endpointUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

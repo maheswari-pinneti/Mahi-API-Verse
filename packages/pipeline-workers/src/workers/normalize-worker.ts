@@ -13,6 +13,13 @@ export const normalizeWorker = new Worker(
     console.log(`[Normalize Worker] Processing Job ${job.id}`);
     const passport = job.data.passport;
     // Normalize logic goes here...
+    
+    // Check for conflicting metadata sources (Phase 8 logic)
+    if (job.data.sources && job.data.sources.length > 1) {
+       passport.conflicting_metadata = true;
+       console.warn(`[Normalize Worker] Conflict detected for API ${passport.id}`);
+    }
+
     passport.state = 'NORMALIZED';
     return passport;
   },

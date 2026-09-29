@@ -10,7 +10,8 @@
   "dependencies": {
     "nodemailer": "^6.9.9",
     "slack-notify": "^2.0.7",
-    "discord.js": "^14.14.1"
+    "discord.js": "^14.14.1",
+    "@mahi-api-verse/network-security": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.3.3",

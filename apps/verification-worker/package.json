@@ -5,10 +5,12 @@
   "main": "dist/worker.js",
   "scripts": {
     "start": "tsx src/worker.ts",
+    "cron": "tsx src/cron.ts",
     "build": "tsc"
   },
   "dependencies": {
     "@mahi-api-verse/database": "workspace:*",
+    "@mahi-api-verse/network-security": "workspace:*",
     "@mahi-api-verse/schemas": "workspace:^",
     "axios": "^1.6.7",
     "bullmq": "^5.4.1",

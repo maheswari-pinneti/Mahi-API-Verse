@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mahi-api-verse/database": "workspace:*",
+    "@mahi-api-verse/api-documentation": "workspace:*",
     "drizzle-orm": "^0.45.3",
     "fs-extra": "^11.2.0",
     "handlebars": "^4.7.8",

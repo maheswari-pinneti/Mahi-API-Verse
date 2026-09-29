@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { safeFetch } from '@mahi-api-verse/network-security';
 
 // Stub for Discord since Discord requires specific setups and this is just the engine layer.
 // We can use a simple Webhook via fetch for Discord/Slack too if we want to minimize dependencies,
@@ -20,7 +21,7 @@ export class NotificationEngine {
     try {
       const color = payload.level === 'critical' ? 16711680 : payload.level === 'warning' ? 16776960 : 65280;
       
-      const response = await fetch(webhookUrl, {
+      const response = await safeFetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -44,7 +45,7 @@ export class NotificationEngine {
    */
   public static async sendSlack(webhookUrl: string, payload: NotificationPayload): Promise<boolean> {
     try {
-      const response = await fetch(webhookUrl, {
+      const response = await safeFetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

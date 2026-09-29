@@ -4,7 +4,7 @@ import { MetadataRoute } from 'next';
  * PHASE 17: SEO PIPELINE (Massive Scale Sitemaps)
  * 
  * Google enforces a strict limit of 50,000 URLs per sitemap. 
- * Because Mahi API Verse has 10,000,000 records, a single sitemap will crash.
+ * Because Mahi API Verse has a growing catalog of records, a single sitemap will crash.
  * 
  * We use Next.js `generateSitemaps` to shard our 10M records into 
  * exactly 200 separate XML sitemap files (sitemap/0.xml, sitemap/1.xml).

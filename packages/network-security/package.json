@@ -1,16 +1,11 @@
 {
-  "name": "@mahi-api-verse/language-matrix-generator",
+  "name": "@mahi-api-verse/network-security",
   "version": "1.0.0",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc -w",
-    "test": "echo 'No tests specified'"
-  },
-  "dependencies": {
-    "@mahi-api-verse/schemas": "workspace:*"
+    "build": "tsc"
   },
   "devDependencies": {
     "typescript": "^5.3.3",

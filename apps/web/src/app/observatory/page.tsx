@@ -10,7 +10,7 @@ import '../globals.css';
 /**
  * PHASE 21: THE GLOBAL OBSERVATORY
  * 
- * Publicly visualizes the metadata extracted from 10,000,000+ API records.
+ * Publicly visualizes the metadata extracted from our API records.
  * Acts as the absolute source of truth for the "State of the API Economy".
  */
 

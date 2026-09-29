@@ -37,7 +37,7 @@ export default function Home() {
             The Open Universe of APIs.
           </h1>
           <p style={{ fontSize: '1.5rem', color: '#9ca3af', maxWidth: '800px', margin: '0 auto 2.5rem auto', lineHeight: 1.5 }}>
-            Explore, connect, and stream over <strong>10,000,000</strong> real-world API endpoints across <strong>700+</strong> languages instantly. Built for the modern developer ecosystem.
+            Explore, connect, and stream our growing catalog of real-world API endpoints across multiple languages instantly. Built for the modern developer ecosystem.
           </p>
           
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
@@ -96,7 +96,7 @@ export default function Home() {
               Streaming NDJSON Extraction.
             </h2>
             <p style={{ fontSize: '1.25rem', color: '#4b5563', lineHeight: 1.6, marginBottom: '2rem' }}>
-              Pull the entire 10-million record knowledge graph straight into your own pipelines using our memory-safe streaming exports. Say goodbye to rate limits.
+              Pull the entire knowledge graph straight into your own pipelines using our memory-safe streaming exports. Say goodbye to rate limits.
             </p>
             <a href="/dashboard" style={{
               padding: '0.75rem 1.5rem',
@@ -121,13 +121,13 @@ export default function Home() {
               fontSize: '0.9rem',
               lineHeight: 1.5
             }}>
-              <div style={{ color: '#6b7280', marginBottom: '1rem' }}>// Extracting 10M rows safely...</div>
+              <div style={{ color: '#6b7280', marginBottom: '1rem' }}>// Extracting rows safely...</div>
               <div>$ pg-cursor pull apis \</div>
               <div style={{ paddingLeft: '1rem' }}>--format=ndjson \</div>
               <div style={{ paddingLeft: '1rem' }}>{'--stream > apis_export.ndjson'}</div>
               <br/>
-              <div style={{ color: '#eab308' }}>✓ Export Complete: 14,205,191 records</div>
-              <div style={{ color: '#3b82f6' }}>📂 Saved to releases/2026-09-28/</div>
+              <div style={{ color: '#eab308' }}>✓ Export Complete</div>
+              <div style={{ color: '#3b82f6' }}>📂 Saved to releases/</div>
             </div>
           </div>
         </div>

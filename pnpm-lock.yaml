@@ -95,6 +95,9 @@ importers:
 
   apps/github-catalog-generator:
     dependencies:
+      '@mahi-api-verse/api-documentation':
+        specifier: workspace:*
+        version: link:../../packages/api-documentation
       '@mahi-api-verse/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -129,6 +132,9 @@ importers:
       '@mahi-api-verse/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@mahi-api-verse/network-security':
+        specifier: workspace:*
+        version: link:../../packages/network-security
       '@mahi-api-verse/schemas':
         specifier: workspace:^
         version: link:../../packages/schemas
@@ -204,6 +210,9 @@ importers:
       '@mahi-api-verse/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@mahi-api-verse/network-security':
+        specifier: workspace:*
+        version: link:../../packages/network-security
       '@mahi-api-verse/schemas':
         specifier: workspace:^
         version: link:../../packages/schemas
@@ -377,8 +386,20 @@ importers:
         specifier: ^5.3.3
         version: 5.9.3
 
+  packages/network-security:
+    devDependencies:
+      '@types/node':
+        specifier: ^20.11.24
+        version: 20.19.43
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+
   packages/notification-engine:
     dependencies:
+      '@mahi-api-verse/network-security':
+        specifier: workspace:*
+        version: link:../network-security
       discord.js:
         specifier: ^14.14.1
         version: 14.27.0
@@ -519,6 +540,9 @@ importers:
       '@mahi-api-verse/database':
         specifier: workspace:*
         version: link:../database
+      '@mahi-api-verse/network-security':
+        specifier: workspace:*
+        version: link:../network-security
       '@mahi-api-verse/schemas':
         specifier: workspace:*
         version: link:../schemas

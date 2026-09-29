@@ -1,9 +1,10 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as Handlebars from 'handlebars';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
-// But let's keep it simple and just use the actual schema file if we can, or we will query via raw if types are hard.
+import { apis, endpoints } from '@mahi-api-verse/database/src/schema';
+import { eq } from 'drizzle-orm';
+import { ApiDocumentationGenerator } from '@mahi-api-verse/api-documentation';
 
 const CATALOG_DIR = path.resolve(process.cwd(), 'catalog');
 
@@ -47,78 +48,78 @@ async function generateCatalog() {
   console.log('📚 Starting GitHub Native Catalog Generation...');
   await fs.ensureDir(CATALOG_DIR);
 
-  const template = Handlebars.compile(API_TEMPLATE.trim());
-
-  let apiList: any[] = [];
-
-  if (process.env.DATABASE_URL) {
-    console.log('🔗 Fetching APIs from Drizzle ORM...');
-    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-    const db = drizzle(pool);
-    // In a real scenario, we would do a complex join across tables.
-    // We will do a generic mock for the demo.
-    apiList = [];
-    await pool.end();
-  } else {
-    console.log('⚠️ No DATABASE_URL found. Using Discovery Engine mock data...');
-    apiList = [
-      {
-        canonicalId: 'api_stripe_core',
-        name: 'Stripe API',
-        description: 'The Stripe API allows you to build billing and payment infrastructure.',
-        provider: 'Stripe, Inc.',
-        lifecycle: 'VERIFIED (Production)',
-        lastVerified: new Date().toISOString(),
-        endpointCount: 342,
-        sdkCount: 7,
-        protocols: [
-          { name: 'REST', version: 'OpenAPI 3.0.0' }
-        ],
-        endpoints: [
-          { method: 'POST', path: '/v1/charges', summary: 'Create a charge' },
-          { method: 'GET', path: '/v1/customers', summary: 'List customers' }
-        ],
-        sdks: [
-          { language: 'Node.js', ecosystem: 'npm', tier: 'Official', package: 'stripe' },
-          { language: 'Python', ecosystem: 'PyPI', tier: 'Official', package: 'stripe' },
-          { language: 'Rust', ecosystem: 'Crates.io', tier: 'Community', package: 'async-stripe' }
-        ]
-      },
-      {
-        canonicalId: 'api_twilio_messaging',
-        name: 'Twilio Programmable Messaging',
-        description: 'Send and receive SMS and MMS on phone numbers around the world.',
-        provider: 'Twilio',
-        lifecycle: 'VERIFIED (Production)',
-        lastVerified: new Date().toISOString(),
-        endpointCount: 45,
-        sdkCount: 5,
-        protocols: [
-          { name: 'REST', version: 'OpenAPI 3.1.0' }
-        ],
-        endpoints: [
-          { method: 'POST', path: '/2010-04-01/Accounts/{AccountSid}/Messages.json', summary: 'Send a Message' }
-        ],
-        sdks: [
-          { language: 'Node.js', ecosystem: 'npm', tier: 'Official', package: 'twilio' },
-          { language: 'Python', ecosystem: 'PyPI', tier: 'Official', package: 'twilio' }
-        ]
-      }
-    ];
+  if (!process.env.DATABASE_URL) {
+    console.error('❌ DATABASE_URL is required to generate real documentation.');
+    process.exit(1);
   }
 
-  for (const api of apiList) {
-    const markdownContent = template(api);
-    const fileName = `${api.canonicalId.replace('api_', '')}.md`;
-    const filePath = path.join(CATALOG_DIR, fileName);
+  console.log('🔗 Fetching APIs from Drizzle ORM...');
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  const db = drizzle(pool);
+  
+  const allApis = await db.select().from(apis as any);
+  console.log(`Found ${allApis.length} APIs in the intelligence database.`);
+
+  const indexLinks: string[] = [];
+
+  for (const record of allApis) {
+    const apiRecord = record as any;
+    console.log(`Generating docs for ${apiRecord.name}...`);
     
+    // Fetch related endpoints
+    const endpointRecords = await db.select().from(endpoints as any).where(eq(endpoints.apiId as any, apiRecord.id));
+    const apiEndpoints = endpointRecords as any[];
+    
+    // Build Passport
+    const passport = {
+      id: apiRecord.id,
+      name: apiRecord.name,
+      state: apiRecord.lifecycle,
+      baseUrls: [apiRecord.sourceUrl || `https://api.example.com`],
+      endpoints: apiEndpoints.map(e => ({
+        method: e.method,
+        path: e.path,
+        name: e.summary || undefined,
+        description: e.summary || undefined,
+        parameters: e.parameters ? (e.parameters as any) : [],
+        requestBodySchema: e.requestSchema ? (e.requestSchema as any) : undefined,
+        responses: e.responseSchema ? { '200': { schema: e.responseSchema } } : undefined
+      }))
+    };
+
+    const bundle = await ApiDocumentationGenerator.generate(passport as any);
+    
+    let markdownContent = `---
+title: "${apiRecord.name}"
+description: "${apiRecord.description || 'API Documentation'}"
+---
+
+${bundle.overview}
+
+${bundle.authentication}
+
+## Endpoints
+
+`;
+
+    for (const [route, snippet] of Object.entries(bundle.endpoints)) {
+      markdownContent += `${snippet}\n\n`;
+    }
+
+    markdownContent += `\n---\n*Auto-generated by Mahi API Verse Documentation Engine on ${new Date().toISOString()}*\n`;
+
+    const fileName = `${apiRecord.slug}.mdx`;
+    const filePath = path.join(CATALOG_DIR, fileName);
     await fs.writeFile(filePath, markdownContent, 'utf-8');
     console.log(`✅ Generated catalog entry: catalog/${fileName}`);
+    
+    indexLinks.push(`- [${apiRecord.name}](./${fileName})`);
   }
 
-  const indexContent = `# Mahi API Verse Catalog\n\nBrowse the fully generated API definitions natively in GitHub:\n\n${apiList.map(a => `- [${a.name}](./${a.canonicalId.replace('api_', '')}.md)`).join('\n')}\n`;
+  const indexContent = `# Mahi API Verse Catalog\n\nBrowse the fully generated API definitions natively in GitHub:\n\n${indexLinks.join('\n')}\n`;
   await fs.writeFile(path.join(CATALOG_DIR, 'INDEX.md'), indexContent, 'utf-8');
   
+  await pool.end();
   console.log('🎉 Catalog Generation Complete.');
 }
 

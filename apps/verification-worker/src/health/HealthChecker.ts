@@ -1,4 +1,5 @@
 import { ApiRecord } from '@mahi-api-verse/schemas';
+import { safeFetch } from '@mahi-api-verse/network-security';
 
 /**
  * PHASE 7: API VERIFICATION
@@ -36,8 +37,8 @@ export class HealthChecker {
       const timeoutId = setTimeout(() => controller.abort(), this.TIMEOUT_MS);
 
       // Using a safe HTTP HEAD request to check availability without triggering actions
-      // In production, this would also include SSRF and Private-IP blocking logic
-      const response = await fetch(targetUrl, {
+      // SSRF guarded using NetworkSecurity.safeFetch
+      const response = await safeFetch(targetUrl, {
         method: 'HEAD',
         redirect: 'follow',
         signal: controller.signal,

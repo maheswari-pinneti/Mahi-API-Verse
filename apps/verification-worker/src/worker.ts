@@ -2,7 +2,10 @@ import { Worker, Job } from 'bullmq';
 import IORedis from 'ioredis';
 import axios from 'axios';
 import * as dns from 'dns';
+import * as tls from 'tls';
 import { promisify } from 'util';
+import { db, eq, apis, verificationLogs } from '@mahi-api-verse/database';
+import { validateOutboundUrl } from '@mahi-api-verse/network-security';
 
 const resolveDns = promisify(dns.resolve);
 
@@ -18,14 +21,40 @@ const redisConnection = new IORedis({
 console.log('🩺 Mahi API Verse Verification Worker Booting...');
 
 // ---------------------------------------------------------
+// Helper: Real TLS Verification
+// ---------------------------------------------------------
+function verifyTls(hostname: string): Promise<{ valid: boolean; issuer?: string; validTo?: string }> {
+  return new Promise((resolve) => {
+    const socket = tls.connect(
+      {
+        host: hostname,
+        port: 443,
+        servername: hostname,
+        timeout: 5000,
+      },
+      () => {
+        const authorized = socket.authorized;
+        const cert = socket.getPeerCertificate(true);
+        socket.end();
+        resolve({
+          valid: authorized,
+          issuer: Array.isArray(cert?.issuer?.O) ? cert.issuer.O[0] : (cert?.issuer?.O as string) || (Array.isArray(cert?.issuer?.CN) ? cert.issuer.CN[0] : (cert?.issuer?.CN as string)),
+          validTo: cert?.valid_to
+        });
+      }
+    );
+
+    socket.on('error', () => resolve({ valid: false }));
+    socket.on('timeout', () => {
+      socket.destroy();
+      resolve({ valid: false });
+    });
+  });
+}
+
+// ---------------------------------------------------------
 // 2. The Verification Pipeline Worker
 // ---------------------------------------------------------
-// This distributed worker listens to the 'api-verification' queue.
-// For each API ingested into the core database, this worker:
-// 1. Performs a DNS check on the provider's API domain
-// 2. Performs a lightweight TLS / HTTPS check
-// 3. Pings a non-destructive health/status endpoint (if available)
-// 4. Logs latency, uptime, and validation status to the DB
 const verificationWorker = new Worker(
   'api-verification',
   async (job: Job) => {
@@ -36,6 +65,8 @@ const verificationWorker = new Worker(
     let dnsValid = false;
     let endpointReachable = false;
     let tlsValid = false;
+    let tlsDetails = {};
+    let rawResponseData = null;
 
     try {
       const parsedUrl = new URL(url);
@@ -49,13 +80,22 @@ const verificationWorker = new Worker(
         console.warn(`[VERIFICATION] DNS resolution failed for ${parsedUrl.hostname}`);
       }
 
-      // Step 2: TLS and Endpoint Reachability Check
-      console.log(`[VERIFICATION] Executing lightweight HTTPS Ping to ${url}...`);
+      // Step 2: TLS Check
       if (parsedUrl.protocol === 'https:') {
-        tlsValid = true; // Simplified for architectural blueprint
+        console.log(`[VERIFICATION] Checking TLS Certificate for ${parsedUrl.hostname}...`);
+        const tlsResult = await verifyTls(parsedUrl.hostname);
+        tlsValid = tlsResult.valid;
+        tlsDetails = { issuer: tlsResult.issuer, validTo: tlsResult.validTo };
       }
 
-      // We set a strict timeout to avoid hung workers
+      // STRICT SSRF CHECK BEFORE AXIOS PING
+      const isSafe = await validateOutboundUrl(url);
+      if (!isSafe) {
+        throw new Error(`SSRF Validation Failed for ${url}`);
+      }
+
+      // Step 3: Endpoint Reachability Check
+      console.log(`[VERIFICATION] Executing HTTPS Ping to ${url}...`);
       const response = await axios({
         method,
         url,
@@ -64,23 +104,54 @@ const verificationWorker = new Worker(
       });
 
       endpointReachable = response.status >= 200 && response.status < 500;
+      rawResponseData = response.data;
       
     } catch (error: any) {
-      // 4xx errors technically mean the endpoint is reachable but requires auth
       if (error.response && error.response.status >= 400 && error.response.status < 500) {
-        endpointReachable = true; 
+        endpointReachable = true;
+        rawResponseData = error.response.data;
       } else {
         console.error(`[VERIFICATION] Endpoint Unreachable:`, error.message);
       }
     }
 
     const latencyMs = Date.now() - startTime;
-
-    // Step 3: Write Verification Logs to Drizzle ORM
-    // db.insert(verificationLogs).values({ apiId, dnsValid, tlsValid, endpointReachable, latencyMs: latencyMs.toString() })
-    // db.update(apis).set({ lastVerifiedAt: new Date(), lifecycle: endpointReachable ? 'VERIFIED' : 'OFFLINE' }).where(eq(apis.id, apiId))
     
-    console.log(`[VERIFICATION] Result for ${apiId}: DNS=${dnsValid}, TLS=${tlsValid}, Reachable=${endpointReachable}, Latency=${latencyMs}ms`);
+    // Determine overall lifecycle status
+    let lifecycleStatus = 'UNVERIFIED';
+    if (dnsValid && endpointReachable && tlsValid) {
+      lifecycleStatus = 'VERIFIED';
+    } else if (dnsValid && endpointReachable && !tlsValid) {
+      lifecycleStatus = 'PARTIALLY_VERIFIED';
+    } else {
+      lifecycleStatus = 'OFFLINE';
+    }
+
+    console.log(`[VERIFICATION] Result for ${apiId}: DNS=${dnsValid}, TLS=${tlsValid}, Reachable=${endpointReachable}, Latency=${latencyMs}ms. Status -> ${lifecycleStatus}`);
+
+    // Step 4: Write Verification Logs to Drizzle ORM
+    try {
+      await db.insert(verificationLogs).values({
+        apiId,
+        dnsValid,
+        tlsValid,
+        endpointReachable,
+        latencyMs: latencyMs.toString(),
+        rawResponse: rawResponseData ? JSON.stringify(rawResponseData).substring(0, 1000) : null // Keep it bounded
+      });
+
+      // Update API Status
+      await db.update(apis)
+        .set({ 
+          lastVerifiedAt: new Date(),
+          lifecycle: lifecycleStatus
+        })
+        .where(eq(apis.id, apiId));
+        
+    } catch (dbErr) {
+      console.error(`[VERIFICATION] Database update failed for ${apiId}:`, dbErr);
+      throw dbErr;
+    }
 
     return { 
       status: 'success', 
@@ -93,7 +164,7 @@ const verificationWorker = new Worker(
   },
   {
     connection: redisConnection,
-    concurrency: 20, // High concurrency since verification is heavily network I/O bound
+    concurrency: 20, 
   }
 );
 
