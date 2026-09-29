@@ -8,7 +8,7 @@ RUN corepack enable
 # 1. Prune stage
 FROM alpine AS builder
 WORKDIR /app
-RUN pnpm add -g turbo
+RUN npm install -g turbo
 COPY . .
 RUN turbo prune --scope=@mahi-api-verse/api --docker
 
