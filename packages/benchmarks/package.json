@@ -6,7 +6,7 @@
     "benchmark": "tsx src/run.ts"
   },
   "dependencies": {
-    "autocannon": "^7.15.0",
+    "autocannon": "^8.0.0",
     "chalk": "^4.1.2"
   },
   "devDependencies": {
