@@ -14,7 +14,7 @@
     "@fastify/rate-limit": "^9.1.0",
     "@mahi-api-verse/database": "workspace:*",
     "fastify": "^4.26.2",
-    "fastify-plugin": "^4.5.1"
+    "fastify-plugin": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.24",
